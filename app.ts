@@ -75,7 +75,7 @@ const request = Got.extend({
 const checkWeekly= async (pids: number[]) => {
   const list = Object.keys(WeekMap)
   const myPids = []
-  console.log(list)
+  console.log(pids)
   for (let i = 0; i < list.length; i++) {
     const uri = WeekMap[i + 1].uri
     const { body } = await request(uri + '/issues/latest')
@@ -101,8 +101,8 @@ const checkWeekly= async (pids: number[]) => {
 const readLatest = () => {
   fs.readFile('./latest.js', 'utf8', (err, data) => {
     if (!err) {
-      console.log(JSON.parse(data))
-      checkWeekly(JSON.parse(data))
+      const list = '[' + data + ']';
+      checkWeekly(JSON.parse(list))
     }
   })
 }
